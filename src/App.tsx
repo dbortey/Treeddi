@@ -346,6 +346,11 @@ export default function App() {
                   likedItems={likedItems}
                   onTradeRequest={handleTradeRequest}
                   onLikeItem={handleLikeItem}
+                  globalStats={{
+                    totalTrades: 1247,
+                    activeTrades: inProgressTrades.length + tradeRequests.filter(r => r.status === 'pending').length,
+                    totalUsers: 3842
+                  }}
                 />
               )}
               {view === 'my-items' && (

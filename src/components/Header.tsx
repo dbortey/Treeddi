@@ -1,4 +1,4 @@
-import { Plus, Package, Search, Menu, ArrowRightLeft, Sparkles } from 'lucide-react';
+import { Plus, Package, Search, ArrowRightLeft, Sparkles } from 'lucide-react';
 import { RippleButton } from './RippleButton';
 
 interface HeaderProps {
@@ -14,12 +14,7 @@ export function Header({ view, onViewChange, onAddClick, onToggleSidebar }: Head
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
-            <button
-              onClick={onToggleSidebar}
-              className="text-neutral-400 hover:text-white transition-colors lg:block"
-            >
-              <Menu className="w-5 h-5" />
-            </button>
+            {/* Removed menu button */}
             
             <h1 className="text-emerald-400 tracking-wider">TREEDDI</h1>
             

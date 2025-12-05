@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, Filter } from 'lucide-react';
+import { Search, Filter, TrendingUp, Clock, Package } from 'lucide-react';
 import { Item } from '../App';
 import { ItemCard } from './ItemCard';
 import { ItemDetailView } from './ItemDetailView';
@@ -11,11 +11,16 @@ interface ItemBrowserProps {
   likedItems: Set<string>;
   onTradeRequest: (offeredItemId: string, requestedItem: Item) => void;
   onLikeItem: (itemId: string) => void;
+  globalStats: {
+    totalTrades: number;
+    activeTrades: number;
+    totalUsers: number;
+  };
 }
 
 const categories = ['All', 'Electronics', 'Clothing', 'Music', 'Sports', 'Appliances', 'Books', 'Other'];
 
-export function ItemBrowser({ items, myItems, likedItems, onTradeRequest, onLikeItem }: ItemBrowserProps) {
+export function ItemBrowser({ items, myItems, likedItems, onTradeRequest, onLikeItem, globalStats }: ItemBrowserProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
@@ -46,6 +51,57 @@ export function ItemBrowser({ items, myItems, likedItems, onTradeRequest, onLike
         onLikeItem={onLikeItem}
         onTradeClick={handleTradeClick}
       />
+
+      {/* Mobile Activity Section - shows after hero slider */}
+      <div className="lg:hidden mb-8 bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+        <h3 className="text-neutral-400 text-sm uppercase tracking-wider mb-4">Platform Activity</h3>
+        
+        <div className="space-y-3">
+          <div className="bg-neutral-800 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2 text-neutral-400">
+                <TrendingUp className="w-4 h-4" />
+                <span className="text-sm">Total Trades</span>
+              </div>
+              <span className="text-white">{globalStats.totalTrades}</span>
+            </div>
+            <p className="text-xs text-neutral-500">Completed this month</p>
+          </div>
+
+          <div className="bg-neutral-800 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2 text-neutral-400">
+                <Clock className="w-4 h-4" />
+                <span className="text-sm">Active Now</span>
+              </div>
+              <span className="text-emerald-400">{globalStats.activeTrades}</span>
+            </div>
+            <p className="text-xs text-neutral-500">Trades in progress</p>
+          </div>
+
+          <div className="bg-neutral-800 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2 text-neutral-400">
+                <Package className="w-4 h-4" />
+                <span className="text-sm">Community</span>
+              </div>
+              <span className="text-white">{globalStats.totalUsers}</span>
+            </div>
+            <p className="text-xs text-neutral-500">Active traders</p>
+          </div>
+        </div>
+
+        {/* Trading Tips */}
+        <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-600/10 border border-emerald-500/20 rounded-lg p-4 mt-4">
+          <h3 className="text-emerald-400 text-sm mb-3">Trading Tips</h3>
+          <ul className="space-y-2 text-xs text-neutral-400">
+            <li>• List detailed descriptions for better trades</li>
+            <li>• Respond to requests within 24 hours</li>
+            <li>• High ratings attract more traders</li>
+            <li>• Upload multiple images to showcase items</li>
+          </ul>
+        </div>
+      </div>
 
       <div className="mb-8">
         <div className="relative mb-4">
